@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Travel Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #mapid { height: 600px; width: 100%; }
+    </style>
+</head>
+<body>
+    <h1>Places I've Visited</h1>
+    <div id="mapid"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        var mymap = L.map('mapid').setView([20, 0], 2); // Centered globally, zoomed out
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
+        // Example: Add a marker for a visited location
+        // L.marker([51.5, -0.09]).addTo(mymap)
+        //     .bindPopup("<b>London!</b><br/>A great city.").openPopup();
+
+        function onMapClick(e) {
+            var lat = e.latlng.lat;
+            var lon = e.latlng.lng;
+            var locationName = prompt("Enter a name for this location:");
+            if (locationName) {
+                L.marker([lat, lon]).addTo(mymap)
+                    .bindPopup("<b>" + locationName + "</b><br/>" + lat.toFixed(2) + ", " + lon.toFixed(2)).openPopup();
+            }
+        }
+
+        mymap.on('click', onMapClick);
+
+    </script>
+</body>
+</html>
