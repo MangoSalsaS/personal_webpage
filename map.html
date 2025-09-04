@@ -14,27 +14,28 @@
     <div id="mapid"></div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
-        var mymap = L.map('mapid').setView([20, 0], 2); // Centered globally, zoomed out
+        var mymap = L.map('mapid').setView([7.0, 80.0], 7); // Centered on Sri Lanka, zoomed appropriately
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
-        // Example: Add a marker for a visited location
-        // L.marker([51.5, -0.09]).addTo(mymap)
-        //     .bindPopup("<b>London!</b><br/>A great city.").openPopup();
+        var cities = [
+            { name: "Colombo", coords: [6.9271, 79.8612] },
+            { name: "Habarana", coords: [8.0381, 80.7410] },
+            { name: "Kandy", coords: [7.2906, 80.6337] },
+            { name: "Nuwara Eliya", coords: [6.9497, 80.7891] },
+            { name: "Weligama", coords: [5.9744, 80.4287] },
+            { name: "Galle", coords: [6.0535, 80.2203] },
+            { name: "Bentota", coords: [6.4172, 80.0076] },
+            { name: "Zhengzhou", coords: [34.7466, 113.6253] },
+            { name: "Kaifeng", coords: [34.7952, 114.3315] }
+        ];
 
-        function onMapClick(e) {
-            var lat = e.latlng.lat;
-            var lon = e.latlng.lng;
-            var locationName = prompt("Enter a name for this location:");
-            if (locationName) {
-                L.marker([lat, lon]).addTo(mymap)
-                    .bindPopup("<b>" + locationName + "</b><br/>" + lat.toFixed(2) + ", " + lon.toFixed(2)).openPopup();
-            }
-        }
-
-        mymap.on('click', onMapClick);
+        cities.forEach(function(city) {
+            L.marker(city.coords).addTo(mymap)
+                .bindPopup("<b>" + city.name + "</b>");
+        });
 
     </script>
 </body>
